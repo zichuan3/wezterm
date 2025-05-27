@@ -12,15 +12,16 @@ local config = {
 	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
 	hide_tab_bar_if_only_one_tab = true,
 	enable_scroll_bar = true,
+    show_tab_index_in_tab_bar = false,
 	window_padding = { left = 0, right = 15, top = 0, bottom = 0 },
-	window_background_opacity = 0.9,
+	window_background_opacity = 0.85,
 	disable_default_key_bindings = true,
-	initial_cols = 110,
+	initial_cols = 120,
 	initial_rows = 30,
-	adjust_window_size_when_changing_font_size = false,
+    default_prog = {"cmd"},
 	launch_menu = {
-		{ label = "CMD", args = { "cmd.exe", "/k" } },
-		{ label = "Pwsh", args = { "pwsh.exe", "-NoLogo" } },
+		{ label = "CMD", args = { "cmd.exe ", "/k" } },
+		{ label = "Pwsh", args = { "pwsh.exe ", "-NoLogo" } },
 		{ label = "Bash", args = { "D:/APP/Scoop/shims/bash.exe" } },
 		{ label = "Nu", args = { "nu.exe" } },
 	},
@@ -50,22 +51,14 @@ local config = {
 	},
 	mouse_bindings = {
 		{
-			event = { Down = { streak = 1, button = "Right" } },
-			mods = "NONE",
-			action = wezterm.action({ PasteFrom = "Clipboard" }),
-		},
-		-- Change the default click behavior so that it only selects
-		-- text and doesn't open hyperlinks
-		{
 			event = { Up = { streak = 1, button = "Left" } },
 			mods = "NONE",
-			action = wezterm.action({ CompleteSelection = "PrimarySelection" }),
+			action = act.CompleteSelection 'ClipboardAndPrimarySelection',
 		},
-		-- and make CTRL-Click open hyperlinks
 		{
 			event = { Up = { streak = 1, button = "Left" } },
 			mods = "CTRL",
-			action = "OpenLinkAtMouseCursor",
+			action = act.OpenLinkAtMouseCursor,
 		},
 	},
 	keys = {
@@ -88,11 +81,13 @@ local config = {
 		{ key = "=", mods = "CTRL", action = act.IncreaseFontSize },
 		{ key = "-", mods = "CTRL", action = act.DecreaseFontSize },
 		{ key = "f", mods = "CTRL", action = "QuickSelect" },
+        { key = "F11", mods = "NONE", action = act.ToggleFullScreen },
 		{
-			key = "p",
-			mods = "CTRL|SHIFT",
+			key = ",",
+			mods = "CTRL",
 			action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|TABS|LAUNCH_MENU_ITEMS" }),
 		},
 	},
 }
+
 return config
