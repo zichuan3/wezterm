@@ -5,7 +5,7 @@ local config = {
 	check_for_updates = false,
 	font_size = 13,
 	font = wezterm.font_with_fallback({
-		{ family = "JetBrains Mono", weight = "Regular" },
+		{ family = "JetBrains Mono", weight = "Medium", harfbuzz_features = { "calt=0", "clig =0", "liga = 0" }, },
 	}),
 	line_height = 1.1,
 	color_scheme = "tokyonight_moon",
@@ -22,7 +22,7 @@ local config = {
 	launch_menu = {
 		{ label = "CMD", args = { "cmd.exe ", "/k" } },
 		{ label = "Pwsh", args = { "pwsh.exe ", "-NoLogo" } },
-		{ label = "Bash", args = { "D:/APP/Scoop/shims/bash.exe" } },
+		{ label = "Bash", args = { "bash.exe" } },
 		{ label = "Nu", args = { "nu.exe" } },
 	},
 	colors = {
@@ -72,7 +72,7 @@ local config = {
 		{ key = "RightArrow", mods = "ALT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 		{ key = "DownArrow", mods = "ALT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 		-- 与neovim冲突了
-        -- { key = "h", mods = "ALT", action = act.AdjustPaneSize({ "Left", 5 }) },
+		-- { key = "h", mods = "ALT", action = act.AdjustPaneSize({ "Left", 5 }) },
 		-- { key = "j", mods = "ALT", action = act.AdjustPaneSize({ "Down", 5 }) },
 		-- { key = "k", mods = "ALT", action = act.AdjustPaneSize({ "Up", 5 }) },
 		-- { key = "l", mods = "ALT", action = act.AdjustPaneSize({ "Right", 5 }) },
