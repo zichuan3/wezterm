@@ -5,19 +5,31 @@ local config = {
 	check_for_updates = false,
 	font_size = 13,
 	font = wezterm.font_with_fallback({
-		{ family = "JetBrains Mono", weight = "Medium", harfbuzz_features = { "calt=0", "clig =0", "liga = 0" }, },
+		{ family = "JetBrains Mono", weight = "Medium", harfbuzz_features = { "calt=0", "clig =0", "liga = 0" } },
 	}),
 	line_height = 1.1,
 	color_scheme = "tokyonight_moon",
-	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
+	-- tab_bar
+	enable_tab_bar = true,
 	hide_tab_bar_if_only_one_tab = true,
-	enable_scroll_bar = true,
+	use_fancy_tab_bar = true,
+	tab_max_width = 25,
 	show_tab_index_in_tab_bar = false,
-	window_padding = { left = 0, right = 15, top = 0, bottom = 0 },
-	window_background_opacity = 0.85,
-	disable_default_key_bindings = true,
+	switch_to_last_active_tab_when_closing_tab = true,
+	-- scrollbar
+	enable_scroll_bar = true,
+	min_scroll_bar_height = "3cell",
+	-- windows
+	adjust_window_size_when_changing_font_size = false,
+	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
+	integrated_title_button_color = "auto",
+	integrated_title_button_alignment = "Right",
+	window_padding = { left = 5, right = 10, top = 12, bottom = 7 },
 	initial_cols = 120,
 	initial_rows = 30,
+	window_background_opacity = 0.85,
+  disable_default_mouse_bindings = true,
+	disable_default_key_bindings = true,
 	default_prog = { "cmd" },
 	launch_menu = {
 		{ label = "CMD", args = { "cmd.exe ", "/k" } },
@@ -50,18 +62,6 @@ local config = {
 			},
 		},
 	},
-	mouse_bindings = {
-		{
-			event = { Up = { streak = 1, button = "Left" } },
-			mods = "NONE",
-			action = act.CompleteSelection("ClipboardAndPrimarySelection"),
-		},
-		{
-			event = { Up = { streak = 1, button = "Left" } },
-			mods = "CTRL",
-			action = act.OpenLinkAtMouseCursor,
-		},
-	},
 	keys = {
 		{ key = "q", mods = "CTRL", action = act.QuitApplication },
 		{ key = "n", mods = "CTRL", action = act.SpawnTab("DefaultDomain") },
@@ -82,12 +82,51 @@ local config = {
 		{ key = "DownArrow", mods = "CTRL", action = act.ActivatePaneDirection("Down") },
 		{ key = "=", mods = "CTRL", action = act.IncreaseFontSize },
 		{ key = "-", mods = "CTRL", action = act.DecreaseFontSize },
-		{ key = "f", mods = "CTRL", action = "QuickSelect" },
+		{ key = "f", mods = "CTRL", action = act.Search({ CaseInSensitiveString = "" }) },
 		{ key = "F11", mods = "NONE", action = act.ToggleFullScreen },
 		{
 			key = ",",
 			mods = "CTRL",
 			action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|TABS|LAUNCH_MENU_ITEMS" }),
+		},
+    {
+      key = "C",
+      mods = "CTRL|SHIFT",
+      action = wezterm.action.CopyTo 'ClipboardAndPrimarySelection',
+    },
+	},
+	mouse_bindings = {
+		{
+			event = { Up = { streak = 1, button = "Left" } },
+			mods = "CTRL",
+			action = act.OpenLinkAtMouseCursor,
+		},
+		-- move mouse will only select text and not copy text to clipboard
+		{
+			event = { Down = { streak = 1, button = "Left" } },
+			mods = "NONE",
+			action = act.SelectTextAtMouseCursor("Cell"),
+		},
+		{
+			event = { Up = { streak = 1, button = "Left" } },
+			mods = "NONE",
+			action = act.ExtendSelectionToMouseCursor("Cell"),
+		},
+		{
+			event = { Drag = { streak = 1, button = "Left" } },
+			mods = "NONE",
+			action = act.ExtendSelectionToMouseCursor("Cell"),
+		},
+		-- Turn on the mouse wheel to scroll the screen
+		{
+			event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+			mods = "NONE",
+			action = act.ScrollByCurrentEventWheelDelta,
+		},
+		{
+			event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+			mods = "NONE",
+			action = act.ScrollByCurrentEventWheelDelta,
 		},
 	},
 }
