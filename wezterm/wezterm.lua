@@ -76,6 +76,7 @@ local config = {
 		-- { key = "j", mods = "ALT", action = act.AdjustPaneSize({ "Down", 5 }) },
 		-- { key = "k", mods = "ALT", action = act.AdjustPaneSize({ "Up", 5 }) },
 		-- { key = "l", mods = "ALT", action = act.AdjustPaneSize({ "Right", 5 }) },
+    -- 跳转窗口焦点
 		{ key = "LeftArrow", mods = "CTRL", action = act.ActivatePaneDirection("Left") },
 		{ key = "RightArrow", mods = "CTRL", action = act.ActivatePaneDirection("Right") },
 		{ key = "UpArrow", mods = "CTRL", action = act.ActivatePaneDirection("Up") },
@@ -129,6 +130,14 @@ local config = {
 			action = act.ScrollByCurrentEventWheelDelta,
 		},
 	},
+  -- 只有当服务器也安装了wezterm时才生效，且版本一致。
+  -- ssh_domains = {
+  --   {
+  --     name = "myserver",
+  --     remote_address = "47.239.3.248",
+  --     username = "root",
+  --   },
+  -- },
 }
 
 return config

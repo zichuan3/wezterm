@@ -1,0 +1,103 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$shell \ 
+$directory \
+$git_branch\
+$git_status\
+$git_commit\
+$all $character"""
+
+scan_timeout = 500
+command_timeout = 5000
+
+# 在提示符之间插入空行
+add_newline = false
+
+# 将提示符的“❯”替换为“➜”
+[character] # “character”是我们正在配置的组件
+success_symbol = "[>](bold green)" # 设置“success_symbol” 字段为绿色加粗的“➜”
+error_symbol = '[x](bold red)'
+vimcmd_symbol = "[<](bold green)"
+
+# 禁用 'package' 组件，将其隐藏
+[package]
+disabled = true
+
+# 显示文件夹路径
+[directory]
+format = "[ $path]($style)[$read_only]($read_only_style) "
+truncation_symbol = '…/'
+
+[shell]
+format = '[❮](bold yellow)[$indicator]($style)[❯](bold yellow)'
+powershell_indicator = 'pwsh'
+bash_indicator = 'bash'
+unknown_indicator = 'mystery shell'
+style = 'cyan bold'
+disabled = false
+
+[time]
+disabled = false
+time_format = "%R" # Hour:Minute Format
+style = "bg:#1d2230"
+format = '[[ $time ](fg:#a0a9cb bg:#1d2230)]($style)'
+
+# 显示git分支
+[git_branch]
+symbol = " "
+style = "bg:#394260"
+format = "[$symbol$branch(:$remote_branch)]($style) "
+
+[git_status]
+conflicted = ' '
+ahead = '  '
+behind = ' '
+diverged = ' '
+up_to_date = '✓'
+untracked = ' '
+stashed = ' '
+modified = ' '
+staged = '[++\($count\)](green)'
+renamed = ' '
+deleted = ' '
+
+[git_commit]
+tag_symbol = " tag "
+
+# 显示ip地址
+[localip]
+ssh_only = false
+format = "[IP:$localipv4](bold red) "
+disabled = false
+
+[sudo]
+style = 'bold green'
+symbol = ' ‍  '
+disabled = false
+
+[c]
+symbol = " "
+
+[conda]
+symbol = "conda "
+
+[java]
+symbol = "java "
+
+[lua]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[python]
+symbol = "py "
+
+[os.symbols]
+Linux = " "
+Ubuntu = " "
+Windows = "  "
+Unknown = " "
+CentOS = " "
+Android = " "

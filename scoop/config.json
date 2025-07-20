@@ -1,0 +1,13 @@
+{
+  "last_update": "2025-07-20T16:56:31.4998302+08:00",
+  "scoop_repo": "https://gitee.com/scoop-installer/scoop",
+  "scoop_branch": "master",
+  "aria2-retry-wait": "2",
+  "aria2-split": "8",
+  "aria2-max-connection-per-server": "8",
+  "aria2-enabled": true,
+  "aria2-warning-enabled": false,
+  "aria2-min-split-size": "4M",
+  "url_proxy": "https://scoop.201704.xyz",
+  "alias": {}
+}
