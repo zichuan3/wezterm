@@ -11,6 +11,9 @@ function M.apply(config)
   { key = "w",          mods = "CTRL",       action = act.CloseCurrentPane({ confirm = false }) },
   { key = "RightArrow", mods = "SHIFT",      action = wezterm.action({ ActivateTabRelative = 1 }) },
   { key = "LeftArrow",  mods = "SHIFT",      action = wezterm.action({ ActivateTabRelative = -1 }) },
+  -- 调整标签页在标签栏中的顺序（焦点仍在当前标签）
+  { key = "RightArrow", mods = "CTRL|SHIFT", action = act.MoveTabRelative(1) },
+  { key = "LeftArrow",  mods = "CTRL|SHIFT", action = act.MoveTabRelative(-1) },
   { key = "RightArrow", mods = "ALT",        action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
   { key = "DownArrow",  mods = "ALT",        action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
   -- 与neovim冲突了
